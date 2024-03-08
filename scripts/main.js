@@ -1,4 +1,17 @@
 let currentAudio = null; // Variable to hold the current audio element
+let lastPlayedIndex = -1; // Variable to remember the last played sound index
+
+// Function to shuffle an array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Shuffled array of sounds
+const sounds = ['assets/buddyout.mp3', 'assets/dooropen.mp3', 'assets/icq-message.wav', 'assets/imrcv.wav', 'assets/lionking.mp3', 'assets/psintro.mp3'];
+shuffleArray(sounds);
 
 document.addEventListener('DOMContentLoaded', function() {
     const artCanvas = document.getElementById('artCanvas');
@@ -11,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Randomize the button's appearance
             this.style.backgroundColor = getRandomColor();
             
-            // Play a random sound and stop the previous one
+            // Play a random sound that is different from the last one
             playRandomSound();
             
             // Add a temporary animation effect
@@ -38,9 +51,13 @@ function playRandomSound() {
         currentAudio.currentTime = 0; // Rewind the track to the beginning
     }
 
-    // Example of playing a random sound effect
-    const sounds = ['assets/buddyout.mp3', 'assets/dooropen.mp3', 'assets/ice-message.wav', 'assets/imrcv.wav', 'assets/lionking.mp3', 'assets/psintro.mp3'];
-    const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
-    currentAudio = new Audio(randomSound); // Update the currentAudio variable
+    // Find the next sound that is different from the last one
+    let nextIndex = (lastPlayedIndex + 1) % sounds.length;
+    while (nextIndex === lastPlayedIndex) {
+        nextIndex = (lastPlayedIndex + 1) % sounds.length;
+    }
+    lastPlayedIndex = nextIndex;
+
+    currentAudio = new Audio(sounds[nextIndex]); // Update the currentAudio variable
     currentAudio.play();
 }
