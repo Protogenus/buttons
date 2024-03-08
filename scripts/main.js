@@ -14,7 +14,7 @@ function shuffleArray(array) {
 }
 
 // Shuffled array of sounds
-const sounds = ['assets/buddyout.mp3', 'assets/dooropen.mp3', 'assets/icq-message.wav', 'assets/imrcv.wav', 'assets/lionking.mp3', 'assets/psintro.mp3'];
+const sounds = ['assets/buddyout.mp3', 'assets/dooropen.mp3', 'assets/icq-message.wav', 'assets/imrcv.wav', 'assets/lionking.mp3', 'assets/psintro.mp3', 'assets/tripods.mp3', 'assets/siren.mp3'];
 shuffleArray(sounds);
 
 document.addEventListener('DOMContentLoaded', function() {
