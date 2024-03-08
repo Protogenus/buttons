@@ -1,5 +1,9 @@
 let currentAudio = null; // Variable to hold the current audio element
 let lastPlayedIndex = -1; // Variable to remember the last played sound index
+let currentColorIndex = 0; // Variable to keep track of the last used color index
+
+// List of colors
+const colors = ['#00916E', '#FEEFE5', '#FFCF00', '#EE6123', '#FA003F'];
 
 // Function to shuffle an array
 function shuffleArray(array) {
@@ -21,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const button = document.createElement('button');
         button.classList.add('button');
         button.addEventListener('click', function() {
-            // Randomize the button's appearance
+            // Change the button's appearance to the next color in the sequence
             this.style.backgroundColor = getRandomColor();
             
             // Play a random sound that is different from the last one
@@ -36,11 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
+    const color = colors[currentColorIndex];
+    currentColorIndex = (currentColorIndex + 1) % colors.length; // Move to the next color or wrap around to the start
     return color;
 }
 
